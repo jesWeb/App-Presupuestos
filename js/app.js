@@ -70,7 +70,7 @@ const crearIngresosHtml = (ingreso) => {
             <div class="derecha limpiarEstilos">
               <div class="elemento_valor">+ ${formatoMoneda(ingreso.valor)} </div>
               <div class="elemento_eliminar">
-                <button class="elemento_eliminar--btn">
+                <button class="elemento_eliminar--btn" onClick='eliminarIngreso(${ingreso.id})'>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -107,7 +107,7 @@ const crearEgresoHtml = (egreso) => {
               <div class="elemento_valor">-${formatoMoneda(egreso.valor)}</div>
               <div class="elemento_porcentaje">${fomatoPorcentaje(egreso.valor / totalEgreso())}</div>
               <div class="elemento_eliminar">
-                <button class="elemento_eliminar--btn">
+                <button class="elemento_eliminar--btn" onClick='eliminarEgreso(${egreso.id})'>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -126,5 +126,31 @@ const crearEgresoHtml = (egreso) => {
           </div>
  `;
 
- return EgresoHTML;
+    return EgresoHTML;
 }
+
+const eliminarIngreso = (id) => {
+
+    let indexEliminar = ingresos.findIndex(ingreso => ingreso.id === id);
+
+    ingresos.splice(indexEliminar, 1);
+
+    cargarCabezera();
+    cargarIngresos();
+
+}
+
+const eliminarEgreso = (id) => {
+
+    let indexEl = egresos.findIndex(egreso => egreso.id === id);
+
+    egresos.splice(indexEl, 1)
+
+    cargarCabezera()
+    cargarEgresos()
+
+    console.log("eliminadoel id ");
+
+
+}
+
