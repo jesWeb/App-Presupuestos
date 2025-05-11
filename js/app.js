@@ -41,11 +41,15 @@ let cargarCabezera = () => {
 
 
 const formatoMoneda = (valor) => {
-    return valor.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 })
+    return valor.toLocaleString('es-MX', { style: 'currency', currency: 'MNX', minimumFractionDigits: 2 })
 }
 
 const fomatoPorcentaje = (valor) => {
-    return valor.toLocaleString('en-US', { style: 'percent', minimumFractionDigits: 2 })
+    if (!valor || isNaN(valor)) {
+        return "0%" 
+    }else {
+        return valor.toLocaleString('en-MX', { style: 'percent', minimumFractionDigits: 2 })
+    }
 }
 
 let CargarApp = () => {
@@ -154,3 +158,29 @@ const eliminarEgreso = (id) => {
 
 }
 
+let agregarDato = () => {
+    let formulario = document.forms['forma'];
+    let tipo = formulario['tipo'];
+    let desc = formulario['descripcion'];
+    let valor = formulario['valor'];
+
+    if (desc.value !== '' && valor.value !== '') {
+        if (tipo.value === 'ingreso') {
+            ingresos.push(new Ingreso(descripcion.value, parseInt(valor.value)))
+            cargarCabezera();
+            cargarIngresos();
+            console.log("Se agrego exitosamente ");
+
+        } else if (tipo.value === "egreso") {
+            egresos.push(new Egreso(descripcion.value, parseInt(valor.value)))
+            cargarCabezera();
+            cargarEgresos();
+            console.log("Se agrego correctamente ");
+
+        }
+    } else {
+        return alert('Ingresa una descripcion y un monto por favor');
+    }
+
+
+}
